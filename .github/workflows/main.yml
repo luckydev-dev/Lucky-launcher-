@@ -1,0 +1,21 @@
+name: Clone Zalith Launcher
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  clone-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Workspace
+        uses: actions/checkout@v4
+
+      - name: Clone ZalithLauncher2 to Root Directory
+        run: |
+          git clone --depth 1 --recurse-submodules https://github.com/ZalithLauncher/ZalithLauncher2 /tmp/zalith_repo
+          cp -rn /tmp/zalith_repo/* .
+          rm -rf /tmp/zalith_repo
+          echo "Successfully cloned ZalithLauncher2 into root directory."
