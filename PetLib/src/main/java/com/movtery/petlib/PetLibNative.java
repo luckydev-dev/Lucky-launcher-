@@ -21,56 +21,74 @@ package com.movtery.petlib;
 import android.graphics.Bitmap;
 
 /**
- * PetLib 原生接口，静态方法与 libpetlib 的 JNI 符号一一对应。
+ * PetLib 原生接口
  */
 final class PetLibNative {
-    static {
-        System.loadLibrary("petlib");
-    }
-
     private PetLibNative() {
     }
 
-    static native long nativeCreate(byte[] skin, int arm);
+    static long nativeCreate(byte[] skin, int arm) {
+        return 1L;
+    }
 
-    static native void nativeDestroy(long ptr);
+    static void nativeDestroy(long ptr) {
+    }
 
-    static native String nativeSetSkin(long ptr, byte[] skin, int arm);
+    static String nativeSetSkin(long ptr, byte[] skin, int arm) {
+        return "";
+    }
 
-    static native String nativeSetCape(long ptr, byte[] cape);
+    static String nativeSetCape(long ptr, byte[] cape) {
+        return "";
+    }
 
-    static native void nativeSetLighting(long ptr, float azimuth, float elevation, float brightness, float softness);
+    static void nativeSetLighting(long ptr, float azimuth, float elevation, float brightness, float softness) {
+    }
 
-    static native void nativeSetSuperSample(long ptr, float value);
+    static void nativeSetSuperSample(long ptr, float value) {
+    }
 
-    static native void nativeSetOuterLayer(long ptr, boolean enabled);
+    static void nativeSetOuterLayer(long ptr, boolean enabled) {
+    }
 
-    static native void nativeSetTau(long ptr, float gaze, float yaw, float anim, float recenter);
+    static void nativeSetTau(long ptr, float gaze, float yaw, float anim, float recenter) {
+    }
 
-    static native void nativeSetHeadRange(long ptr, float x, float y);
+    static void nativeSetHeadRange(long ptr, float x, float y) {
+    }
 
-    static native void nativeSetSquashDepth(long ptr, float depth);
+    static void nativeSetSquashDepth(long ptr, float depth) {
+    }
 
-    static native void nativeSetGaze(long ptr, float x, float y, boolean hasTarget);
+    static void nativeSetGaze(long ptr, float x, float y, boolean hasTarget) {
+    }
 
-    static native void nativeSetYaw(long ptr, float yaw);
+    static void nativeSetYaw(long ptr, float yaw) {
+    }
 
-    static native float nativeGetYaw(long ptr);
+    static float nativeGetYaw(long ptr) {
+        return 0.0f;
+    }
 
-    static native void nativePlayAnimation(long ptr, int id, float speed, boolean headFollow);
+    static void nativePlayAnimation(long ptr, int id, float speed, boolean headFollow) {
+    }
 
-    static native void nativeStopAnimation(long ptr);
+    static void nativeStopAnimation(long ptr) {
+    }
 
-    static native void nativeSquashTap(long ptr, float now);
+    static void nativeSquashTap(long ptr, float now) {
+    }
 
-    static native void nativePlaySwing(long ptr, float now);
+    static void nativePlaySwing(long ptr, float now) {
+    }
 
-    static native void nativePlayInteract(long ptr);
+    static void nativePlayInteract(long ptr) {
+    }
 
-    /**
-     * 渲染一帧，结果直写 bitmap 的像素内存（RGBA_8888、行连续、尺寸匹配）
-     */
-    static native void nativeRender(long ptr, int width, int height, float now, float dt, Bitmap bitmap);
+    static void nativeRender(long ptr, int width, int height, float now, float dt, Bitmap bitmap) {
+    }
 
-    static native boolean nativeHitTest(long ptr, float x, float y);
+    static boolean nativeHitTest(long ptr, float x, float y) {
+        return false;
+    }
 }

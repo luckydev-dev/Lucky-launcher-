@@ -127,5 +127,5 @@ androidComponents {
 }
 
 tasks.named("preBuild") {
-    dependsOn(cargoBuild)
+    // dependsOn(cargoBuild)
 }

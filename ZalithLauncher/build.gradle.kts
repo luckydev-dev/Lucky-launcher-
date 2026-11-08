@@ -12,7 +12,6 @@ plugins {
     id("com.google.devtools.ksp")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
-    id("com.movtery.buildkeys")
 }
 
 val zalithPackageName = "com.movtery.zalithlauncher"
@@ -294,16 +293,6 @@ kotlin {
     }
 }
 
-buildKeys {
-    string("OAUTH_CLIENT_ID", getKeyFromLocal("OAUTH_CLIENT_ID", ".oauth_client_id.txt", defaultOAuthClientID), true)
-    string("LAUNCHER_NAME", launcherAPPName, true)
-    string("LAUNCHER_IDENTIFIER", launcherName, true)
-    string("LAUNCHER_SHORT_NAME", launcherShortName, true)
-    string("URL_HOME", launcherUrl, true)
-    string("CURSEFORGE_API", getKeyFromLocal("CURSEFORGE_API_KEY", ".curseforge_api.txt", defaultCurseForgeApiKey), true)
-    string("BUILD_ARCH", projectArch)
-}
-
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
@@ -395,4 +384,16 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+}
+
+val copyToAppDebugApk = tasks.register<Copy>("copyToAppDebugApk") {
+    from(layout.buildDirectory.dir("outputs/apk/debug")) {
+        include("*.apk")
+        rename { "app-debug.apk" }
+    }
+    into(rootProject.file("app/build/outputs/apk/debug"))
+}
+
+tasks.matching { it.name == "assembleDebug" }.configureEach {
+    finalizedBy(copyToAppDebugApk)
 }

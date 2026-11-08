@@ -1,0 +1,6 @@
+{
+  "name": "Zalith Launcher",
+  "description": "A modern Minecraft Java Edition launcher for Android built with Jetpack Compose.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
