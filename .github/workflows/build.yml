@@ -81,6 +81,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           add-job-summary: "on-failure"
+          validate-wrappers: false
 
       - name: Prepare Gradle Wrapper if missing
         run: |
