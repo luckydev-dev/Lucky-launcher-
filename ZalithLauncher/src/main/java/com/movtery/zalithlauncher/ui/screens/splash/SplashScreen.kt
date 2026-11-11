@@ -18,6 +18,10 @@
 
 package com.movtery.zalithlauncher.ui.screens.splash
 
+import androidx.compose.ui.graphics.Color
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftText
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftXpBar
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftParticleCanvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -139,18 +143,29 @@ private fun LoadingScreen(
                 .animated(ctx, from = AnimatedDirection.Bottom),
             contentAlignment = Alignment.Center
         ) {
+            MinecraftParticleCanvas(modifier = Modifier.fillMaxSize(), particleCount = 28)
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
+                verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
                 Image(
-                    modifier = Modifier.size(58.dp),
-                    painter = painterResource(R.drawable.img_launcher),
-                    contentDescription = stringResource(R.string.generic_loading)
+                    modifier = Modifier.size(68.dp),
+                    painter = painterResource(R.drawable.ic_lucky_logo),
+                    contentDescription = "Lucky Launcher"
                 )
-                LinearWavyProgressIndicator(
-                    modifier = Modifier.width(128.dp),
-                    wavelength = 32.dp
+
+                MinecraftText(
+                    text = "LUCKY LAUNCHER",
+                    fontSize = 20,
+                    color = Color(0xFFFFD700),
+                    shadowColor = Color(0xFF6B5300)
+                )
+
+                MinecraftXpBar(
+                    progress = 0.92f,
+                    level = 100,
+                    modifier = Modifier.width(160.dp)
                 )
             }
         }

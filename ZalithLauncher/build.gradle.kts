@@ -188,6 +188,10 @@ android {
         }
     }
 
+    androidResources {
+        noCompress.addAll(listOf("xz", "tar.xz"))
+    }
+
     compileOptions {
         // sora-editor language-textmate
         isCoreLibraryDesugaringEnabled = true

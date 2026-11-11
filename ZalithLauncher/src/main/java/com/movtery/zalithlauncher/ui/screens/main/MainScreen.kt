@@ -18,6 +18,9 @@
 
 package com.movtery.zalithlauncher.ui.screens.main
 
+import androidx.compose.foundation.Image
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftParticleCanvas
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftText
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
@@ -170,76 +173,80 @@ fun MainScreen(
         color = backgroundColor,
         contentColor = onBackgroundColor()
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            TopBar(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(40.dp),
-                mainScreenKey = mainScreenKey,
-                inLauncherScreen = inLauncherScreen,
-                taskRunning = taskRunning,
-                isTasksExpanded = isTaskMenuExpanded,
-                contentColor = onBackgroundColor(),
-                onScreenBack = {
-                    screenBackStackModel.mainScreen.backStack.removeFirstOrNull()
-                },
-                toMainScreen = toMainScreen,
-                toSettingsScreen = {
-                    screenBackStackModel.mainScreen.removeAndNavigateTo(
-                        removes = screenBackStackModel.clearBeforeNavKeys,
-                        screenKey = screenBackStackModel.settingsScreen
-                    )
-                },
-                toDownloadScreen = {
-                    screenBackStackModel.navigateToDownload()
-                },
-                toMultiplayerScreen = {
-                    screenBackStackModel.mainScreen.removeAndNavigateTo(
-                        removes = screenBackStackModel.clearBeforeNavKeys,
-                        screenKey = NormalNavKey.Multiplayer
-                    )
-                },
-                openFileManager = {
-                    eventViewModel.sendEvent(
-                        EventViewModel.Event.OpenFileManager(
-                            rootPath = PathManager.DIR_FILES_EXTERNAL.absolutePath
-                        )
-                    )
-                },
-                changeExpandedState = {
-                    changeTasksExpandedState()
-                },
-            )
+        Box(modifier = Modifier.fillMaxSize()) {
+            MinecraftParticleCanvas(modifier = Modifier.fillMaxSize(), particleCount = 36)
 
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
+                    .fillMaxSize()
             ) {
-                NavStateHost(rootKey = screenBackStackModel.mainScreen) {
-                    NavigationUI(
-                        modifier = Modifier.fillMaxSize(),
-                        screenBackStackModel = screenBackStackModel,
-                        toMainScreen = toMainScreen,
-                        eventViewModel = eventViewModel,
-                        modpackImportViewModel = modpackImportViewModel,
-                        modifyVersionViewModel = modifyVersionViewModel,
-                        submitError = submitError
-                    )
-                }
-
-                TaskMenu(
-                    isExpanded = isTaskMenuExpanded,
+                TopBar(
                     modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(0.3f)
-                        .align(Alignment.CenterStart)
-                        .padding(all = 6.dp)
+                        .fillMaxWidth()
+                        .height(40.dp),
+                    mainScreenKey = mainScreenKey,
+                    inLauncherScreen = inLauncherScreen,
+                    taskRunning = taskRunning,
+                    isTasksExpanded = isTaskMenuExpanded,
+                    contentColor = onBackgroundColor(),
+                    onScreenBack = {
+                        screenBackStackModel.mainScreen.backStack.removeFirstOrNull()
+                    },
+                    toMainScreen = toMainScreen,
+                    toSettingsScreen = {
+                        screenBackStackModel.mainScreen.removeAndNavigateTo(
+                            removes = screenBackStackModel.clearBeforeNavKeys,
+                            screenKey = screenBackStackModel.settingsScreen
+                        )
+                    },
+                    toDownloadScreen = {
+                        screenBackStackModel.navigateToDownload()
+                    },
+                    toMultiplayerScreen = {
+                        screenBackStackModel.mainScreen.removeAndNavigateTo(
+                            removes = screenBackStackModel.clearBeforeNavKeys,
+                            screenKey = NormalNavKey.Multiplayer
+                        )
+                    },
+                    openFileManager = {
+                        eventViewModel.sendEvent(
+                            EventViewModel.Event.OpenFileManager(
+                                rootPath = PathManager.DIR_FILES_EXTERNAL.absolutePath
+                            )
+                        )
+                    },
+                    changeExpandedState = {
+                        changeTasksExpandedState()
+                    },
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
                 ) {
-                    changeTasksExpandedState()
+                    NavStateHost(rootKey = screenBackStackModel.mainScreen) {
+                        NavigationUI(
+                            modifier = Modifier.fillMaxSize(),
+                            screenBackStackModel = screenBackStackModel,
+                            toMainScreen = toMainScreen,
+                            eventViewModel = eventViewModel,
+                            modpackImportViewModel = modpackImportViewModel,
+                            modifyVersionViewModel = modifyVersionViewModel,
+                            submitError = submitError
+                        )
+                    }
+
+                    TaskMenu(
+                        isExpanded = isTaskMenuExpanded,
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(0.3f)
+                            .align(Alignment.CenterStart)
+                            .padding(all = 6.dp)
+                    ) {
+                        changeTasksExpandedState()
+                    }
                 }
             }
         }
@@ -341,18 +348,20 @@ private fun <E: TitledNavKey> TopBar(
                 val maxLines = 1
 
                 if (parent == null) {
-                    if (festivals.isEmpty()) {
-                        Text(
-                            text = BuildKeys.LAUNCHER_IDENTIFIER,
-                            style = style,
-                            softWrap = softWarp,
-                            maxLines = maxLines
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_lucky_logo),
+                            contentDescription = "Lucky Launcher",
+                            modifier = Modifier.size(24.dp)
                         )
-                    } else {
-                        FestivalTitleText(
-                            festivals = festivals,
-                            style = style,
-                            maxLines = maxLines
+                        MinecraftText(
+                            text = BuildKeys.LAUNCHER_NAME,
+                            fontSize = 17,
+                            color = Color(0xFFFFD700),
+                            shadowColor = Color(0xFF554400)
                         )
                     }
                 } else {

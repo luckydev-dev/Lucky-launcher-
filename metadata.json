@@ -1,6 +1,6 @@
 {
-  "name": "Zalith Launcher",
-  "description": "A modern Minecraft Java Edition launcher for Android built with Jetpack Compose.",
+  "name": "Lucky Launcher",
+  "description": "Lucky Launcher - A Minecraft Java Edition launcher for Android featuring blocky retro UI, Minecraft-style animations, and custom controls.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -18,7 +18,13 @@
 
 package com.movtery.zalithlauncher.ui.screens.content
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftButton
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftXpBar
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftTitleHeader
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftText
+import com.movtery.zalithlauncher.ui.minecraft.MinecraftSlotCard
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
@@ -270,18 +276,26 @@ private fun ContentMenu(
     val ctx = rememberAnimatedContext(isVisible = isVisible)
     val gridState = rememberCardGridState()
 
-    CompositionLocalProvider(
-        LocalHomeCardLauncher provides onLaunchGame,
-        LocalHomeCardVersionSettings provides onOpenVersionSettings,
-        LocalServerCardQuickPlay provides onQuickPlayServer
-    ) {
-        HomeGrid(
-            state = gridState,
-            isVisible = isVisible,
-            modifier = modifier
-                .fillMaxSize()
-                .animated(ctx)
+    Column(modifier = modifier.fillMaxSize()) {
+        MinecraftTitleHeader(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 12.dp)
         )
+
+        CompositionLocalProvider(
+            LocalHomeCardLauncher provides onLaunchGame,
+            LocalHomeCardVersionSettings provides onOpenVersionSettings,
+            LocalServerCardQuickPlay provides onQuickPlayServer
+        ) {
+            HomeGrid(
+                state = gridState,
+                isVisible = isVisible,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .animated(ctx)
+            )
+        }
     }
 }
 
@@ -481,18 +495,24 @@ private fun VersionsContent(
             }
         }
 
-        ScalingActionButton(
+        MinecraftXpBar(
+            progress = 1.0f,
+            level = 100,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(PaddingValues(horizontal = 12.dp))
+                .padding(horizontal = 14.dp, vertical = 4.dp)
+        )
+
+        MinecraftButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 12.dp)
                 .padding(bottom = 8.dp),
-            elevation = ButtonDefaults.buttonElevation(defaultElevation = 1.dp),
+            isLuckyGold = true,
             onClick = {
                 onLaunchGame(null)
             },
-            content = {
-                MarqueeText(text = stringResource(R.string.main_launch_game))
-            }
+            text = stringResource(R.string.main_launch_game)
         )
     }
 }
